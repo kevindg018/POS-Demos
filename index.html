@@ -455,31 +455,32 @@
                     return;
                 }
                 const newProd = {
-                    id: generateId(),
-                    name: document.getElementById('prod-name').value,
-                    code: document.getElementById('prod-code').value,
-                    brand: document.getElementById('prod-brand').value,
-                    category: document.getElementById('prod-cat').value,
-                    measure: document.getElementById('prod-measure').value,
-                    buyPrice: parseFloat(document.getElementById('prod-buy').value),
-                    sellPrice: parseFloat(document.getElementById('prod-sell').value),
-                    stock: 0 
-                };
-                if (productEditing) {
-                    const index = db.products.findIndex(p => p.id === productEditing);
-                    if (index !== -1) {
-                        db.products[index] = { ...db.products[index], ...newProd };
-                    }
-                    productEditing = null;
-                } else {
-                    db.products.push(newProd);
-                }
-                saveDB();
-                e.target.reset();
-                showToast('Producto creado exitosamente');
-                refreshProductConfigUI();
-            });
-        }
+    id: generateId(),
+    name: document.getElementById('prod-name').value,
+    code: document.getElementById('prod-code').value,
+    brand: document.getElementById('prod-brand').value,
+    category: document.getElementById('prod-cat').value,
+    measure: document.getElementById('prod-measure').value,
+    buyPrice: parseFloat(document.getElementById('prod-buy').value),
+    sellPrice: parseFloat(document.getElementById('prod-sell').value)
+};
+
+             if (productEditing) {
+    const index = db.products.findIndex(p => p.id === productEditing);
+    if (index !== -1) {
+        db.products[index] = {
+            ...db.products[index], // 👈 conserva stock
+            ...newProd
+        };
+    }
+    productEditing = null;
+} else {
+    db.products.push({
+        ...newProd,
+        stock: 0 // 👈 SOLO al crear
+    });
+}
+
 
         function addCategory() {
             const val = document.getElementById('new-cat').value;
@@ -1582,3 +1583,4 @@
     </script>
 </body>
 </html>
+
