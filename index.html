@@ -480,6 +480,12 @@
         stock: 0 // 👈 SOLO al crear
     });
 }
+                saveDB();
+                e.target.reset();
+                showToast('Producto guardado exitosamente');
+                refreshProductConfigUI();
+            }); // 👈 CIERRA addEventListener
+        } // 👈 CIERRA renderProducts
 
 
         function addCategory() {
@@ -1583,4 +1589,3 @@
     </script>
 </body>
 </html>
-
