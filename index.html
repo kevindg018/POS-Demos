@@ -465,7 +465,15 @@
                     sellPrice: parseFloat(document.getElementById('prod-sell').value),
                     stock: 0 
                 };
-                db.products.push(newProd);
+                if (productEditing) {
+                    const index = db.products.findIndex(p => p.id === productEditing);
+                    if (index !== -1) {
+                        db.products[index] = { ...db.products[index], ...newProd };
+                    }
+                    productEditing = null;
+                } else {
+                    db.products.push(newProd);
+                }
                 saveDB();
                 e.target.reset();
                 showToast('Producto creado exitosamente');
@@ -506,9 +514,33 @@
                     <td class="p-3"><span class="bg-slate-900 px-2 py-0.5 rounded text-xs text-slate-400 border border-slate-700">${p.category}</span></td>
                     <td class="p-3 text-right ${p.stock <= 5 ? 'text-red-500 font-bold' : 'text-emerald-400'}">${p.stock}</td>
                     <td class="p-3 text-right font-bold text-amber-500">${formatMoney(p.sellPrice)}</td>
-                    <td class="p-3 text-center text-red-500 cursor-pointer hover:text-red-400" onclick="deleteProduct('${p.id}')"><i class="fas fa-trash"></i></td>
+                    <td class="p-3 text-center">
+    <div class="flex justify-center gap-3">
+        <button onclick="editProduct('${p.id}')" class="text-amber-400 hover:text-amber-300" title="Editar">
+            <i class="fas fa-pen"></i>
+        </button>
+        <button onclick="deleteProduct('${p.id}')" class="text-red-500 hover:text-red-400" title="Eliminar">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+</td>
                 </tr>
             `).join('');
+        }
+
+        function editProduct(id) {
+            const product = db.products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('prod-name').value = product.name;
+            document.getElementById('prod-code').value = product.code;
+            document.getElementById('prod-brand').value = product.brand;
+            document.getElementById('prod-cat').value = product.category;
+            document.getElementById('prod-measure').value = product.measure;
+            document.getElementById('prod-buy').value = product.buyPrice;
+            document.getElementById('prod-sell').value = product.sellPrice;
+
+            productEditing = id;
         }
 
         function deleteProduct(id) {
@@ -520,6 +552,7 @@
         }
 
         // --- VISTA POS (CAJA Y VENTAS) ---
+        let productEditing = null;
         let currentCart = [];
         let posCategoryFilter = 'Todos';
         
