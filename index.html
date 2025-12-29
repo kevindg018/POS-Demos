@@ -1,1 +1,84 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .anuncio-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .anuncio-card {
+            background-color: #ffffff;
+            border-left: 5px solid #e74c3c; /* Línea roja de advertencia */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 25px;
+            max-width: 450px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .anuncio-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .anuncio-titulo {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .anuncio-mensaje {
+            color: #576574;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .anuncio-boton {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .anuncio-boton:hover {
+            background-color: #c0392b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="anuncio-container">
+        <div class="anuncio-card">
+            <div class="anuncio-icon">☁️</div>
+            <h2 class="anuncio-titulo">Aviso Importante</h2>
+            <p class="anuncio-mensaje">
+                Por favor, <strong>cancelar o abonar a la nube</strong> para mantener activo su servicio.
+            </p>
+            <p class="anuncio-mensaje" style="font-size: 0.95rem;">
+                Contactar directamente con el <strong>administrador</strong>.
+            </p>
+            <a href="#" class="anuncio-boton">Contactar Soporte</a>
+        </div>
+    </div>
+
+</body>
+</html>
